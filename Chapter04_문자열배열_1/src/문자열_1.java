@@ -52,11 +52,46 @@
  *        charAt() => 문자중에 한개의 char얻는다 
  *        toCharArray() => char[]
  */
+import java.util.*;
 public class 문자열_1 {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-         
+        // 기능처리 => 메소드 : 기능처리한후에 반드시 결과값을 보내준다 
+		// 결과값: 리턴형 
+		// double Math.random() 
+		// Math.random();
+		// String => char[] toCharArray
+		/*String s="Hello Java";
+		System.out.println(s);
+		char[] c=s.toCharArray();
+		System.out.println(Arrays.toString(c));*/
+		
+		char[] arr=new char[10];
+		// 초기값
+		for(int i=0;i<arr.length;i++)
+		{
+			arr[i]=(char)((Math.random()*26)+65);
+		}
+		
+		//System.out.println(Arrays.toString(arr));
+		//String s=String.valueOf(arr);// 배열을 문자열 변환 
+		//System.out.println(s);
+		// char[] => String  valueOf
+		// String => char[]  toCharArray
+		// charAt() => char
+		/*
+		 *    Hello Java
+		 *    0123456789
+		 *    
+		 *    charAt(4) => 'o'
+		 */
+		String s="Hello Java"; // "" ''
+		for(int i=0;i<10;i++)
+		{
+			char c=s.charAt(i);
+			System.out.println("c="+c);
+		}
 	}
 
 }
