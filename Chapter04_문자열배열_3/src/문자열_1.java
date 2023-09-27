@@ -40,8 +40,11 @@ public class 문자열_1 {
         	String msg=(i+1)+"|"+title.get(i).text()
         			  +"|"+singer.get(i).text()+"|"
         			  +album.get(i).text()
-        			  +"|"+youtubeData(title.get(i).text());
+        			  +"|"+youtubeData(title.get(i).text())+"\r\n";
         	System.out.println(msg);
+        	FileWriter fw=new FileWriter("c:\\javaDev\\genie.txt",true);
+        	fw.write(msg);
+        	fw.close();
         }
 	}
 	static String youtubeData(String title)
