@@ -137,7 +137,7 @@ public class 메소드_3_메소드변경_2 {
     			else
     			{
     			   System.out.println("Game Over!!");
-    			   break;
+    			   System.exit(0);
     			}
     		}
     	}
