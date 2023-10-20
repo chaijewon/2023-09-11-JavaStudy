@@ -33,6 +33,7 @@ public class ClientMainForm extends JFrame implements ActionListener{
     MenuPanel mp=new MenuPanel();
     ControllPanel cp=new ControllPanel();
     JLabel logo=new JLabel();
+    Login login=new Login();
     public ClientMainForm()
     {
     	setLayout(null); // 직접 배치
@@ -46,7 +47,7 @@ public class ClientMainForm extends JFrame implements ActionListener{
     	cp.setBounds(135, 15, 865, 705);
     	add(cp);
     	setSize(1025, 768);
-    	setVisible(true);
+    	//setVisible(true);
     	setDefaultCloseOperation(EXIT_ON_CLOSE);
     	setResizable(false);
     	// 등록 
@@ -56,6 +57,8 @@ public class ClientMainForm extends JFrame implements ActionListener{
     	mp.b4.addActionListener(this);
     	mp.b5.addActionListener(this);
     	mp.b6.addActionListener(this);
+    	
+    	login.b1.addActionListener(this);
     	
     }
 	public static void main(String[] args) {
@@ -92,6 +95,12 @@ public class ClientMainForm extends JFrame implements ActionListener{
 		else if(e.getSource()==mp.b6)
 		{
 			System.exit(0);
+		}
+		else if(e.getSource()==login.b1)
+		{
+			// 서버연결 
+			login.setVisible(false);
+			setVisible(true);
 		}
 	}
 
