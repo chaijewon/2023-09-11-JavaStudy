@@ -102,6 +102,16 @@ package com.sist.exception;
 import javax.swing.*;
 class A
 {
+	int a;
+	static { // static메소드 ==일반 메소드 => this
+		A aa=new A();
+		aa.a=100;
+	}
+	void aaaa()
+	{
+		a=100;
+	}
+	//private A() {}
 	public void aaa() {System.out.println("A:aaa()");}
 }
 class B extends A
