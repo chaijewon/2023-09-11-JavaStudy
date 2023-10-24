@@ -291,7 +291,12 @@ public class MainClass {
 		  }
 		  fr.close();
 		  System.out.println(data.toString());
+		  return;
 		}catch(Exception ex) {}
+		finally
+		{
+			System.out.println("finally call...");
+		}
 		//Exception/Throwable
 	}
 
