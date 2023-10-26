@@ -39,7 +39,7 @@ public class MainClass_3 {
         set.add("A");
         set.add("B");
         set.add("C");
-        
+        //set.add(null);
         // 출력 
         for(String s:set)
         {
