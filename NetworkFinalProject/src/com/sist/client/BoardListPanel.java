@@ -43,7 +43,7 @@ implements ActionListener
     	table.getTableHeader().setReorderingAllowed(false);
     	table.setShowVerticalLines(false);
     	table.setRowHeight(40);
-    	
+    	table.getTableHeader().setPreferredSize(new Dimension(35,35));
     	table.getColumn("번호").setPreferredWidth(30);
     	table.getColumn("제목").setPreferredWidth(400);
     	table.getColumn("이름").setPreferredWidth(100);
@@ -74,15 +74,17 @@ implements ActionListener
     	add(js);
     	
     	JPanel p=new JPanel();
-    	p.add(b2);
-    	p.add(pageLa);
     	p.add(b3);
+    	p.add(pageLa);
+    	p.add(b4);
     	
     	p.setBounds(10, 570, 710, 35);
     	add(p);
     	
     	// 이벤트 
     	b1.addActionListener(this);
+    	b3.addActionListener(this);// 이전 
+    	b4.addActionListener(this);// 다음
     	boardList();
     }
     public void boardList()
@@ -95,7 +97,7 @@ implements ActionListener
     	ArrayList<BoardVO> list=bm.boardListData(curpage);
     	totalPage=bm.boardTotalPage();
     	pageLa.setText(curpage+" page / "+totalPage+" pages");
-    	for(int i=list.size()-1;i>=0;i--)
+    	for(int i=0;i<list.size();i++)
     	{
     		BoardVO vo=list.get(i);
     		String[] data= {
@@ -119,6 +121,22 @@ implements ActionListener
 			cp.bip.tf3.setText("");
 			cp.bip.ta.setText("");
 			cp.card.show(cp, "insert");
+		}
+		else if(e.getSource()==b3)
+		{
+			if(curpage>1)
+			{
+				curpage--;
+				boardList();
+			}
+		}
+		else if(e.getSource()==b4)
+		{
+			if(curpage<totalPage)
+			{
+				curpage++;
+				boardList();
+			}
 		}
 	}
 }

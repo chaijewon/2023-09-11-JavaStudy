@@ -1,4 +1,5 @@
 package com.sist.food;
+import java.io.FileWriter;
 import java.net.URLEncoder;
 import java.util.*;
 
@@ -49,13 +50,13 @@ public class FoodMain {
 		// TODO Auto-generated method stub
         FoodMain fm=new FoodMain();
         //fm.foodCategoryData();
-        //fm.foodHouseData();
-        fm.foodLocationData();
+        fm.foodHouseData();
+        //fm.foodLocationData();
 	}
-	public void foodCategoryData()
+	public ArrayList<FoodCategoryVO> foodCategoryData()
 	{
-		//DataDAO dao=new DataDAO();
-		//System.out.println("foodCatgorydata():dao="+dao);
+		ArrayList<FoodCategoryVO> list=
+				new ArrayList<FoodCategoryVO>();
 		try
         {
         	Document doc=Jsoup.connect("https://www.mangoplate.com/").get();
@@ -63,6 +64,7 @@ public class FoodMain {
         	Elements subject=doc.select("div.top_list_slide p.desc");
         	Elements poster=doc.select("div.top_list_slide img.center-croping");
         	Elements link=doc.select("div.top_list_slide ul.list-toplist-slider a");
+        	String data="";
         	for(int i=0;i<title.size();i++)
         	{
         		System.out.println("번호:"+(i+1));
@@ -77,11 +79,21 @@ public class FoodMain {
         		vo.setSubject(subject.get(i).text());
         		vo.setPoster(poster.get(i).attr("data-lazy"));
         		vo.setLink("https://www.mangoplate.com"+link.get(i).attr("href"));
-        		
+        		list.add(vo);
         		//dao.foodCategoryInsert(vo);
         		System.out.println("==================================================");
+        		String msg=(i+1)+"|"
+        			 +vo.getTitle()+"|"
+        			 +vo.getSubject()+"|"
+        			 +vo.getPoster()+"\r\n";
+        		FileWriter fw=
+        				new FileWriter("c:\\java_data\\food_category.txt",true);
+        		fw.write(msg);
+        		fw.close();	 
         	}
         }catch(Exception ex){}
+		
+		return list;
 	}
 	
 	public void foodHouseData()
@@ -89,7 +101,7 @@ public class FoodMain {
 		try
 		   {
 			   //DataDAO dao=DataDAO.newInstance();
-			   List<FoodCategoryVO> list=null;
+			   List<FoodCategoryVO> list=foodCategoryData();
 			   int m=1;
 			   for(FoodCategoryVO vo:list)
 			   {
@@ -141,7 +153,7 @@ public class FoodMain {
 				    	   image+=poster.get(j).attr("src")+"^"; // , 
 				       }
 				       image=image.substring(0,image.lastIndexOf("^"));// 마지막 ^를 제거 
-				       image=image.replace("&", "#");
+				       /*image=image.replace("&", "#");
 				       StringTokenizer st=new StringTokenizer(image,"^");
 				       int k=1;
 				       
@@ -149,7 +161,7 @@ public class FoodMain {
 				       {
 				    	   System.out.println(k+"."+st.nextToken());
 				    	   k++;
-				       }
+				       }*/
 				       // 한개 => Element , 여러개 => Elements
 				       /*
 				        *   <table class="info no_menu "> 
@@ -236,7 +248,7 @@ public class FoodMain {
 				    		   mu=e.text();
 				    	   }
 				       }
-				       System.out.println("번호:"+m);
+				       System.out.println("번호:"+vo.getCno());
 				       System.out.println("업체명:"+title.text());
 				       System.out.println("점수:"+score.text());
 				       System.out.println("주소:"+addr);
@@ -261,12 +273,27 @@ public class FoodMain {
 				       fvo.setTime(ti);
 				       fvo.setMenu(mu);
 				       fvo.setPoster(image);
+				       String data=fvo.getNo()+"|"
+				    		    +fvo.getCno()+"|"
+				    		    +fvo.getName()+"|"
+				    		    +fvo.getScore()+"|"
+				    		    +fvo.getAddress()+"|"
+				    		    +fvo.getTel()+"|"
+				    		    +fvo.getType()+"|"
+				    		    +fvo.getPrice()+"|"
+				    		    +fvo.getParking()+"|"
+				    		    +fvo.getTime()+"|"
+				    		    +fvo.getMenu()+"|"
+				    		    +fvo.getPoster()+"\r\n";
+				       FileWriter fw=new FileWriter("c:\\java_data\\food_house.txt",true);
+				       fw.write(data);
+				       fw.close();
 				       // 번호는 자동 증가 
 				       // <script id="reviewCountInfo" type="application/json">[{"action_value":1,"count":0},{"action_value":2,"count":3},{"action_value":3,"count":23}]</script>
-				       Element review=doc2.selectFirst("script#reviewCountInfo");
+				       //Element review=doc2.selectFirst("script#reviewCountInfo");
 				       // class(중복) => . , id(중복이 없다) => # => 태그 구분
 				       //System.out.println(review.data()); // script => data()
-				       String json=review.data();
+				       /*String json=review.data();
 				       JSONParser jp=new JSONParser();
 				       JSONArray arr=(JSONArray)jp.parse(json);
 				       String good="",soso="",bad="";
@@ -291,9 +318,10 @@ public class FoodMain {
 				       System.out.println("BAD:"+bad);
 				       fvo.setGood(Integer.parseInt(good));
 				       fvo.setSoso(Integer.parseInt(soso));
-				       fvo.setBad(Integer.parseInt(bad));
+				       fvo.setBad(Integer.parseInt(bad));*/
 				       // 데이터베이스에 저장 
 				       //dao.foodHouseInsert(fvo);
+				       
 				       m++;
 				   }
 				   

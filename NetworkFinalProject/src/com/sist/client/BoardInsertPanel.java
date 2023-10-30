@@ -1,8 +1,5 @@
 package com.sist.client;
 
-import java.awt.Color;
-import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -68,8 +65,11 @@ implements ActionListener
      	 add(la4);add(tf3);
      	 
      	 JPanel p=new JPanel();
+     	 p.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
+     	 b1.setPreferredSize(new Dimension(120,30));
+     	 b2.setPreferredSize(new Dimension(120,30));
      	 p.add(b1);p.add(b2);
-     	 p.setBounds(10, 555, 625, 35);
+     	 p.setBounds(10, 555, 625, 40);
      	 add(p);
      	 
      	 b1.addActionListener(this);

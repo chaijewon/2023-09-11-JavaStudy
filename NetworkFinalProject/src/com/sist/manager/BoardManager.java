@@ -42,19 +42,20 @@ public class BoardManager {
 	   int j=0;
 	   int rowSize=10;//화면에 출력하는 갯수 
 	   int pagecnt=(page*rowSize)-rowSize;
-	   /*
-	    *   1page => 0~9  skip
-	    *   2page => 10~19
-	    *   3page => 20~29...
-	    *   
-	    */
-	   // 오라클 => 인라인뷰 
-	   // MySQL => LIMIT 
-	   for(int i=0;i<bList.size();i++)
+	   
+	   
+	   ArrayList<BoardVO> temp=
+			   new ArrayList<BoardVO>();
+	   for(int i=bList.size()-1;i>=0;i--)
+	   {
+		   temp.add(bList.get(i));
+	   }
+	   
+	   for(int i=0;i<temp.size();i++)
 	   {
 		   if(j<10 && i>=pagecnt)
 		   {
-			   BoardVO vo=bList.get(i);
+			   BoardVO vo=temp.get(i);
 			   list.add(vo);
 			   j++; //10개씩만 저장 
 		   }
