@@ -102,6 +102,19 @@ public class BoardManager {
    // 삭제하기 ===  동일 코딩 ==> 파일에 저장 
    // 검색하기 
    // 자동 증가번호 만들기 => 스퀀스 
+   // SELECT MAX(no)+1 FROM board
+   public int boardSequence()
+   {
+	   int max=0;
+	   for(BoardVO vo:bList)
+	   {
+		   if(vo.getNo()>max)
+		   {
+			   max=vo.getNo();
+		   }
+	   }
+	   return max+1;
+   }
    // 공통 => 파일 저장 
    
 }

@@ -9,6 +9,8 @@ import java.awt.event.*;
 import javax.swing.table.*;
 import com.sist.vo.*;
 import com.sist.manager.*;
+import java.util.*;
+import java.text.*;
 public class BoardListPanel extends JPanel
 implements ActionListener
 {
@@ -17,6 +19,9 @@ implements ActionListener
 	JTable table;
 	DefaultTableModel model;
 	ControllPanel cp;// 화면 변경 ==> <jsp:include>
+	int curpage=1;
+	int totalPage=0;
+	BoardManager bm=new BoardManager();
     public BoardListPanel(ControllPanel cp)
     {
     	this.cp=cp;
@@ -78,13 +83,41 @@ implements ActionListener
     	
     	// 이벤트 
     	b1.addActionListener(this);
-    	
+    	boardList();
+    }
+    public void boardList()
+    {
+    	// 전체를 지운다 
+    	for(int i=model.getRowCount()-1;i>=0;i--)
+    	{
+    		model.removeRow(i);
+    	}
+    	ArrayList<BoardVO> list=bm.boardListData(curpage);
+    	totalPage=bm.boardTotalPage();
+    	pageLa.setText(curpage+" page / "+totalPage+" pages");
+    	for(int i=list.size()-1;i>=0;i--)
+    	{
+    		BoardVO vo=list.get(i);
+    		String[] data= {
+    			String.valueOf(vo.getNo()),
+    			vo.getSubject(),
+    			vo.getName(),
+    			new SimpleDateFormat("yyyy-MM-dd").format(vo.getRegdate()),
+    			String.valueOf(vo.getHit())
+    		};
+    		
+    		model.addRow(data);
+    	}
     }
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource()==b1)//b1을 클릭했다면 
 		{
+			cp.bip.tf1.setText("");
+			cp.bip.tf2.setText("");
+			cp.bip.tf3.setText("");
+			cp.bip.ta.setText("");
 			cp.card.show(cp, "insert");
 		}
 	}
