@@ -12,7 +12,7 @@ import javax.swing.*;
 
 import com.sist.manager.FoodManager;
 import com.sist.vo.FoodCategoryVO;
-public class HomePanel extends JPanel{
+public class HomePanel extends JPanel implements ActionListener{
    JButton b1,b2,b3;
    PosterCard[] pcs=new PosterCard[12];
    FoodManager fm=new FoodManager();
@@ -36,14 +36,16 @@ public class HomePanel extends JPanel{
 	   add("North",p);
 	   add("Center",pan);
 	   
-	   
+	   b1.addActionListener(this);
+	   b2.addActionListener(this);
+	   b3.addActionListener(this);
    }
    public void cardPrint(ArrayList<FoodCategoryVO> list)
    {
 	   int i=0;
 	   for(FoodCategoryVO vo:list)
 	   {
-		   System.out.println(vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));
+		   //System.out.println(vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));
 		   pcs[i]=new PosterCard(vo);
 		   pan.add(pcs[i]);
 		   i++;
@@ -54,4 +56,30 @@ public class HomePanel extends JPanel{
 	   pan.removeAll();// 데이터 제거 
 	   pan.validate();// Panel 재배치 
    }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==b1)
+		{
+			ArrayList<FoodCategoryVO> list=
+					fm.foodCategoryData(1);
+			cardInit();
+			cardPrint(list);
+			  
+		}
+		else if(e.getSource()==b2)
+		{
+			ArrayList<FoodCategoryVO> list=
+					fm.foodCategoryData(2);
+			cardInit();
+			cardPrint(list);
+		}
+		else if(e.getSource()==b3)
+		{
+			ArrayList<FoodCategoryVO> list=
+					fm.foodCategoryData(3);
+			cardInit();
+			cardPrint(list);
+		}
+	}
 }
