@@ -99,6 +99,26 @@ public class BoardManager {
 	   }
    }
    // 상세보기 
+   public BoardVO boardDetailData(int no)
+   {
+	   BoardVO vo=new BoardVO();
+	   for(int i=0;i<bList.size();i++)
+	   {
+		   BoardVO bVO=bList.get(i);
+		   if(bVO.getNo()==no)
+		   {
+			   bVO.setHit(bVO.getHit()+1);// 조회수 증가 
+			   vo=bVO;
+			   fileSave();// 파일과 ArrayList가 동일 
+			   break;
+			   // 다음주부터 => 파일 / 오라클 
+			   // UPDATE board SET hit=hit+1 WHERE no=1;
+			   // 오라클 (웹 핵심) => SQL 
+			   // SQL (CRUD => SELECT , INSERT , UPDATE, DELETE)
+		   }
+	   }
+	   return vo;
+   }
    // 수정하기 ===
    // 삭제하기 ===  동일 코딩 ==> 파일에 저장 
    // 검색하기 
