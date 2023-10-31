@@ -19,7 +19,7 @@ public class PosterCard extends JPanel{
 	   
 	   try
 	   {
-		   if(vo.getPoster().startsWith("http"))
+		   if(vo.getPoster()!=null)
 		   {
 		     URL url=new URL(
 				   vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));

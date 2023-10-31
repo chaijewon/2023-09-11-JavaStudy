@@ -81,7 +81,8 @@ public class HomePanel extends JPanel implements ActionListener{
 			   
 			   FoodCategoryVO fvo=
 					   new FoodCategoryVO();
-			   fvo.setPoster("c:\\javaDev\\def.png");
+			   //fvo.setPoster("c:\\javaDev\\def.png");
+			   fvo.setPoster(null);
 			   fvo.setTitle("");
 			   for(int j=0;j<6;j++)
 			   {
