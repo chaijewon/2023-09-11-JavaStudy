@@ -92,7 +92,22 @@ public class BoardDetailPanel extends JPanel implements ActionListener{
 		}
 		else if(e.getSource()==b2)
 		{
+			String no=noLa.getText();
+			cp.bdel.la1.setText(no);
+			cp.bdel.pf.setText("");
+			// <input type="hidden">
 			cp.card.show(cp, "delete");
+		}
+		else if(e.getSource()==b1)
+		{
+			String no=noLa.getText();
+			BoardVO vo=
+					bm.boardUpdateData(Integer.parseInt(no));
+			cp.bup.tf1.setText(vo.getName());
+			cp.bup.tf2.setText(vo.getSubject());
+			cp.bup.ta.setText(vo.getContent());
+			cp.bup.la5.setText(no);
+			cp.card.show(cp, "update");
 		}
 	}
 

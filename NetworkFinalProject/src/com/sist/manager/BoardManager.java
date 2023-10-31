@@ -120,8 +120,49 @@ public class BoardManager {
 	   return vo;
    }
    // 수정하기 ===
+   public BoardVO boardUpdateData(int no)
+   {
+	   BoardVO vo=new BoardVO();
+	   // SELECT * FROM board WHERE no=1
+	   for(BoardVO bVO:bList)
+	   {
+		   if(bVO.getNo()==no)
+		   {
+			   vo=bVO;
+			   break;
+		   }
+	   }
+	   return vo;
+   }
    // 삭제하기 ===  동일 코딩 ==> 파일에 저장 
-   // 검색하기 
+   // ArrayList 제어 / 파일 제어 => 웹 => Manager
+   // 웹 => 파일 대신 오라클 
+   public String boardDelete(int no,String pwd)
+   {
+	   String result=""; // NO , YES
+	   for(int i=0;i<bList.size();i++)
+	   {
+		   BoardVO vo=bList.get(i);
+		   if(vo.getNo()==no)
+		   {
+			   if(vo.getPwd().equals(pwd))
+			   {
+				   // 삭제 대상 => 비밀번호가 일치
+				   result="YES";
+				   bList.remove(i);
+				   fileSave();
+			   }
+			   else
+			   {
+				   // 비밀번호가 틀린 상태 
+				   result="NO";
+			   }
+			   
+			   break;
+		   }
+	   }
+	   return result;
+   }
    // 자동 증가번호 만들기 => 스퀀스 
    // SELECT MAX(no)+1 FROM board
    public int boardSequence()

@@ -44,6 +44,43 @@ public class BoardDeletePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()==b2)
+		{
+			cp.card.show(cp, "detail");
+			// 이전화면 => history.back()
+		}
+		else if(e.getSource()==b1)
+		{
+			// 1. 번호 =>  la1
+			String no=la1.getText();
+			// 2. 비밀번호 => 
+			String pwd=String.valueOf(pf.getPassword());
+			if(pwd.trim().length()<1)// 입력이 안된 상태
+			{
+				// 유효성 검사 => HTML (JavaScript)
+				JOptionPane.showMessageDialog(this, "비밀번호를 입력하세요");
+				// alert()
+				pf.requestFocus();
+				return;
+			}
+			// => 비밀번호를 확인
+			String res=bm.boardDelete(Integer.parseInt(no), pwd);
+			// 웹 => 출력시 문자열 , 처리시 정수형 
+			//      String.valueOf()  Integer.parseInt()
+			// 웹에서 3대 클래스 => ArrayList,Integer , String 
+			if(res.equals("YES"))
+			{
+				// 목록으로 이동 
+				cp.blp.boardList();// 변경된 내용을 다시 읽어온다 
+				cp.card.show(cp, "board");
+			}
+			else if(res.equals("NO"))
+			{
+				// 비밀번호 다시 입력 요청 
+				JOptionPane.showMessageDialog(this, "비밀번호가 틀립니다!!");
+				pf.setText("");
+				pf.requestFocus();
+			}
+		}
 	}
 }

@@ -10,6 +10,7 @@ public class ControllPanel extends JPanel{
     public BoardInsertPanel bip;
     public BoardDetailPanel bdp;
     public BoardDeletePanel bdel;
+    public BoardUpdatePanel bup;
     public CardLayout card=new CardLayout();
     public ControllPanel()
     {
@@ -17,6 +18,7 @@ public class ControllPanel extends JPanel{
     	bip=new BoardInsertPanel(this);
     	bdp=new BoardDetailPanel(this);// 자체에서 이동 
     	bdel=new BoardDeletePanel(this);
+    	bup=new BoardUpdatePanel(this);
     	setLayout(card);
     	add("home",hp);
     	add("chat",cp);
@@ -25,5 +27,8 @@ public class ControllPanel extends JPanel{
     	add("insert",bip);
     	add("detail",bdp); // 화면 이동 
     	add("delete",bdel);
+    	add("update",bup);
+    	// => @RequestMapping("update.jsp") => Spring/Spring-Boot
+    	// => app.get("update")=> NodeJS
     }
 }
