@@ -47,13 +47,20 @@ public class HomePanel extends JPanel implements ActionListener{
 	   {
 		   //System.out.println(vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));
 		   pcs[i]=new PosterCard(vo);
+		   
 		   pan.add(pcs[i]);
 		   i++;
 	   }
+	   
    }
-   public void cardInit()
+   public void cardInit(ArrayList<FoodCategoryVO> list)
    {
-	   pan.removeAll();// 데이터 제거 
+	   for(int i=0;i<list.size();i++)
+	   {
+		   pcs[i].poLa.setIcon(null);
+		   pcs[i].tLa.setText("");
+	   }
+	   pan.removeAll();// 데이터 제거
 	   pan.validate();// Panel 재배치 
    }
 	@Override
@@ -63,22 +70,31 @@ public class HomePanel extends JPanel implements ActionListener{
 		{
 			ArrayList<FoodCategoryVO> list=
 					fm.foodCategoryData(1);
-			cardInit();
+			cardInit(list);
 			cardPrint(list);
 			  
 		}
 		else if(e.getSource()==b2)
 		{
-			ArrayList<FoodCategoryVO> list=
+			   ArrayList<FoodCategoryVO> list=
 					fm.foodCategoryData(2);
-			cardInit();
+			   
+			   FoodCategoryVO fvo=
+					   new FoodCategoryVO();
+			   fvo.setPoster("c:\\javaDev\\def.png");
+			   fvo.setTitle("");
+			   for(int j=0;j<6;j++)
+			   {
+				   list.add(fvo);
+			   }
+			cardInit(list);
 			cardPrint(list);
 		}
 		else if(e.getSource()==b3)
 		{
 			ArrayList<FoodCategoryVO> list=
 					fm.foodCategoryData(3);
-			cardInit();
+			cardInit(list);
 			cardPrint(list);
 		}
 	}

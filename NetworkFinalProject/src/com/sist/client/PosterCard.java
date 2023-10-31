@@ -19,12 +19,24 @@ public class PosterCard extends JPanel{
 	   
 	   try
 	   {
-		   URL url=new URL(
+		   if(vo.getPoster().startsWith("http"))
+		   {
+		     URL url=new URL(
 				   vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));
-		   Image image=ImageChange.getImage(new ImageIcon(url),
+		     Image image=ImageChange.getImage(new ImageIcon(url),
 				   280, 150);
-		   poLa.setIcon(new ImageIcon(image));
+		     poLa.setIcon(new ImageIcon(image));
+		   }
+		   else
+		   {
+			     Image image=ImageChange.getImage(
+			    		 new ImageIcon(vo.getPoster()),
+					   280, 150);
+			     
+			     poLa.setIcon(new ImageIcon(image)); 
+		   }
 		   tLa.setText(vo.getTitle());
-	   }catch(Exception ex) {}
+		   System.out.println(vo.getTitle());
+	   }catch(Exception ex) {ex.printStackTrace();}
    }
 }
