@@ -134,6 +134,38 @@ public class BoardManager {
 	   }
 	   return vo;
    }
+   public String boardUpdate(BoardVO vo)
+   {                       // 클라이언트가 전송 
+	   String result="";//YES/NO
+	   for(int i=0;i<bList.size();i++)
+	   {
+		   // remove(index) , set(index)
+		   BoardVO pVO=bList.get(i);
+		   // 서버에 저장 
+		   if(pVO.getNo()==vo.getNo())
+		   {
+			   if(pVO.getPwd().equals(vo.getPwd()))
+			   {
+				   // 수정 (비밀번호가 일치)
+				   result="YES";
+				   //bList.set(i, vo);// 메모리 => 수정
+				   pVO.setContent(vo.getContent());
+				   pVO.setName(vo.getName());
+				   pVO.setSubject(vo.getSubject());
+				   
+				   fileSave();//파일 => 수정된 내용을 파일에 저장
+				   // 메모리 저장 == 파일에 저장
+			   }
+			   else
+			   {
+				   // 비밀번호가 틀린 상태
+				   result="NO";
+			   }
+			   break;
+		   }
+	   }
+	   return result;
+   }
    // 삭제하기 ===  동일 코딩 ==> 파일에 저장 
    // ArrayList 제어 / 파일 제어 => 웹 => Manager
    // 웹 => 파일 대신 오라클 

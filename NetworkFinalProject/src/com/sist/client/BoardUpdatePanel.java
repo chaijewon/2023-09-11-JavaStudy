@@ -70,7 +70,47 @@ public class BoardUpdatePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource()==b2)
+		{
+			cp.card.show(cp, "detail");
+		}
+		else if(e.getSource()==b1)
+		{
+			String name=tf1.getText();
+			String subject=tf2.getText();
+			String content=ta.getText();
+			String pwd=String.valueOf(pf.getPassword());
+			if(pwd.trim().length()<1)// 입력이 안된 상태
+			{
+				JOptionPane.showMessageDialog(this, "비밀번호를 입력하세요!!");
+				// 사용자 오류 발생 => 예외처리 
+				pf.requestFocus();
+				return;
+			}
+			String no=la5.getText();
+			BoardVO vo=new BoardVO();
+			vo.setName(name);
+			vo.setSubject(subject);
+			vo.setContent(content);
+			vo.setPwd(pwd);
+			vo.setNo(Integer.parseInt(no));
+			
+			// BoardManager연결 
+			String res=bm.boardUpdate(vo);
+			if(res.equals("YES"))
+			{
+				cp.card.show(cp, "board");
+				cp.blp.boardList();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "비밀번호가 틀립니다");
+				pf.setText("");
+				pf.requestFocus();
+			}
+			// sendRedirect("detail.jsp")
+			
+		}
 	}
 
 }
