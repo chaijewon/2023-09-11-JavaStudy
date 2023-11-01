@@ -9,7 +9,7 @@ import com.sist.common.ImageChange;
 import com.sist.manager.*;
 import java.net.*;//URL
 public class FoodFindPanel extends JPanel 
-implements ActionListener{
+implements ActionListener,KeyListener{
      JTextField tf;
      JButton b1,b2;
      JTable table;
@@ -75,14 +75,16 @@ implements ActionListener{
     	 p.add(b1);
     	 p.add(b2);
     	 
-    	 setLayout(new BorderLayout());
-    	 
-    	 add("North",p);
-    	 add("Center",js);
+    	 setLayout(null);
+    	 p.setBounds(10, 30, 600, 35);
+    	 js.setBounds(10, 75, 600, 500);
+    	 add(p);
+    	 add(js);
     	 
     	 b1.addActionListener(this);
     	 b2.addActionListener(this);
     	 tf.addActionListener(this);
+    	 tf.addKeyListener(this);
      }
      public void findPrint(String title)
      {
@@ -125,6 +127,25 @@ implements ActionListener{
 		else if(e.getSource()==b2)
 		{
 			cp.card.show(cp,"home");
+		}
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==tf)
+		{
+			String title=tf.getText();
+			findPrint(title);
 		}
 	}
 }
