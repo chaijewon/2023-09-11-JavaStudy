@@ -12,6 +12,7 @@ public class ControllPanel extends JPanel{
     public BoardDeletePanel bdel;
     public BoardUpdatePanel bup;
     public FoodCategoryListPanel fcp;
+    public FoodDetailPanel fdp;
     public CardLayout card=new CardLayout();
     public ControllPanel()
     {
@@ -22,6 +23,7 @@ public class ControllPanel extends JPanel{
     	bdel=new BoardDeletePanel(this);
     	bup=new BoardUpdatePanel(this);
     	fcp=new FoodCategoryListPanel(this);
+    	fdp=new FoodDetailPanel(this);
     	setLayout(card);
     	add("home",hp);
     	add("chat",cp);
@@ -32,6 +34,7 @@ public class ControllPanel extends JPanel{
     	add("delete",bdel);
     	add("update",bup);
     	add("catefood",fcp);
+    	add("fdetail",fdp);
     	// => @RequestMapping("update.jsp") => Spring/Spring-Boot
     	// => app.get("update")=> NodeJS
     }

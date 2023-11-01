@@ -240,9 +240,43 @@ public class FoodManager {
 	   }
 	   return list;
    }
+   public FoodCategoryVO categoryInfoData(String title)
+   {
+	   FoodCategoryVO vo=new FoodCategoryVO();
+	   for(FoodCategoryVO fvo:cList)
+	   {
+		   if(fvo.getTitle().equals(title))
+		   {
+			   vo=fvo;
+			   break;
+		   }
+	   }
+	   return vo;
+   }
    public ArrayList<FoodHouseVO> foodHouseListData(int cno)
    {
-	   System.out.println("맛집 갯수:"+fList.size());
-	   return fList;
+	   ArrayList<FoodHouseVO> list=
+			   new ArrayList<FoodHouseVO>();
+	   for(FoodHouseVO fvo:fList)
+	   {
+		   if(fvo.getCno()==cno)
+		   {
+			   list.add(fvo);
+		   }
+	   }
+	   return list;
+   }
+   public FoodHouseVO foodInfoData(int fno)
+   {
+	   FoodHouseVO vo=new FoodHouseVO();
+	   for(FoodHouseVO fvo:fList)
+	   {
+		   if(fvo.getFno()==fno)
+		   {
+			   vo=fvo;
+			   break;
+		   }
+	   }
+	   return vo;
    }
 }

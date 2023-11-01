@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import com.sist.manager.FoodManager;
 import com.sist.vo.FoodCategoryVO;
+import com.sist.vo.FoodHouseVO;
 public class HomePanel extends JPanel implements ActionListener,MouseListener{
    JButton b1,b2,b3;
    PosterCard[] pcs=new PosterCard[12];
@@ -114,6 +115,13 @@ public class HomePanel extends JPanel implements ActionListener,MouseListener{
 			{
 				if(e.getClickCount()==2)
 				{
+					String title=pcs[i].tLa.getText();
+					FoodCategoryVO vo=fm.categoryInfoData(title);
+					cp.fcp.la1.setText(vo.getTitle());
+					cp.fcp.la2.setText(vo.getSubject());
+					ArrayList<FoodHouseVO> list=
+							   fm.foodHouseListData(vo.getCno());
+					cp.fcp.foodPrint(list);
 					cp.card.show(cp,"catefood");
 				}
 			}
