@@ -88,8 +88,8 @@ public class FoodDetailPanel extends JPanel implements ActionListener{
       {
     	  try
     	  {
-    		  nameLa.setText(vo.getName());
-    		  scoreLa.setText(String.valueOf(vo.getScore()));
+    		  nameLa.setText("<html><h1><font color=\"blue\">"+vo.getName()+"</font></h1></html>");
+    		  scoreLa.setText("<html><h1><font color=\"orange\">"+String.valueOf(vo.getScore())+"</font></h1></html>");
     		  addressLa.setText(vo.getAddress());
     		  phoneLa.setText(vo.getPhone());
     		  typeLa.setText(vo.getType());

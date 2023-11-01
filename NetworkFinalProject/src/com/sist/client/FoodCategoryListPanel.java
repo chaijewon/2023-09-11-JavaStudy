@@ -63,7 +63,7 @@ implements MouseListener,ActionListener{
     	 
     	 b.setBounds(10, 120, 100, 30);
     	 
-    	 js.setBounds(10, 160, 750, 450);
+    	 js.setBounds(10, 160, 750, 500);
     	 
     	 add(la1);
     	 add(la2);
