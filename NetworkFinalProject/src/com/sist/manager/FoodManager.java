@@ -240,4 +240,9 @@ public class FoodManager {
 	   }
 	   return list;
    }
+   public ArrayList<FoodHouseVO> foodHouseListData(int cno)
+   {
+	   System.out.println("맛집 갯수:"+fList.size());
+	   return fList;
+   }
 }
