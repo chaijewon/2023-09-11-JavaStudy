@@ -24,7 +24,7 @@ public class PosterCard extends JPanel{
 		     URL url=new URL(
 				   vo.getPoster().substring(0,vo.getPoster().lastIndexOf("?")));
 		     Image image=ImageChange.getImage(new ImageIcon(url),
-				   280, 150);
+				   280, 120);
 		     poLa.setIcon(new ImageIcon(image));
 		   }
 		   else
