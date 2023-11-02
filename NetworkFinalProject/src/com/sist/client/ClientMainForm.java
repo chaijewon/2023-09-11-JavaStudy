@@ -9,6 +9,8 @@ import com.sist.vo.FoodCategoryVO;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.*;
 import java.io.*;
@@ -37,17 +39,19 @@ import java.net.*;
  *   CardLayout : 감춘다 => 
  */
 
-public class ClientMainForm extends JFrame implements ActionListener,Runnable{
+public class ClientMainForm extends JFrame 
+implements ActionListener,Runnable,MouseListener{
     MenuPanel mp=new MenuPanel();
     ControllPanel cp=new ControllPanel();
     JLabel logo=new JLabel();
     Login login=new Login();
     FoodManager fm=new FoodManager();
-    
+    int selectIndex=-1;
     // 네트워크 관련 
     Socket s; // 전화기 
     OutputStream out; // 송신
     BufferedReader in; // 수신 
+    String myId="";
     public ClientMainForm()
     {
     	setLayout(null); // 직접 배치
@@ -81,7 +85,8 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
     	// 채팅 등록 
     	cp.cp.tf.addActionListener(this);
     	cp.cp.b6.addActionListener(this);// 프로그램 종료
-    	
+    	cp.cp.b4.addActionListener(this);
+    	cp.cp.table2.addMouseListener(this);
     	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     			
     }
@@ -178,6 +183,24 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 				out.write((Function.EXIT+"|\n").getBytes());
 			}catch(Exception ex) {}
 		}
+		else if(e.getSource()==cp.cp.b4)
+		{
+			if(selectIndex==-1)
+			{
+				JOptionPane.showMessageDialog(this, "정보 볼 대상을 선택하세요~~");
+				return;
+			}
+			String id=cp.cp.model2.getValueAt(selectIndex, 0).toString();
+			String name=cp.cp.model2.getValueAt(selectIndex, 1).toString();
+			String sex=cp.cp.model2.getValueAt(selectIndex, 2).toString();
+			String pos=cp.cp.model2.getValueAt(selectIndex, 3).toString();
+			String msg="ID:"+id+"\n"
+					  +"이름:"+name+"\n"
+					  +"성별:"+sex+"\n"
+					  +"현위치:"+pos;
+			JOptionPane.showMessageDialog(this, msg);
+			selectIndex=-1;
+		}
 	}
 	// 서버와 연결 
 	public void connect(String id,String name,String sex)
@@ -225,8 +248,10 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 				  break;
 				  case Function.MYLOG:
 				  {
+					  myId=st.nextToken();
 					  login.setVisible(false);
 					  setVisible(true);
+					  setTitle(myId);
 				  }
 				  break;
 				  case Function.WAITCHAT:
@@ -259,5 +284,34 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 			}
 		}catch(Exception ex) {}
 	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==cp.cp.table2)
+		{
+			selectIndex=cp.cp.table2.getSelectedRow();
+		}
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }

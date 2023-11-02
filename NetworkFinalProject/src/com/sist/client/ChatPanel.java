@@ -30,7 +30,16 @@ public class ChatPanel extends JPanel{
 	   String[] col2={"ID","이름","성별","위치"};
 	   String[][] row2=new String[0][4];
 	   
-	   model2=new DefaultTableModel(row2,col2);
+	   model2=new DefaultTableModel(row2,col2)
+	   {
+
+		@Override
+		public boolean isCellEditable(int row, int column) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		     
+	   };
 	   table2=new JTable(model2);
 	   JScrollPane js2=new JScrollPane(table2);
 	   
