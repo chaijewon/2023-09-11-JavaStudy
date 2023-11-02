@@ -2,13 +2,18 @@ package com.sist.client;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
+import javax.swing.text.Document;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 public class ChatPanel extends JPanel{
    JTable table1,table2;
    DefaultTableModel model1,model2;
-   JTextArea pane;
+   JTextPane pane;
    JTextField tf;
    JButton b1,b2,b3,b4,b5,b6;
    JScrollBar bar;
+   JComboBox<String> box=new JComboBox<String>();
    public ChatPanel()
    {
 	   setLayout(null);
@@ -32,15 +37,25 @@ public class ChatPanel extends JPanel{
 	   js2.setBounds(10, 375, 450, 300);
 	   add(js2);
 	   
-	   pane=new JTextArea();
+	   pane=new JTextPane();
 	   JScrollPane js3=new JScrollPane(pane);
 	   pane.setEditable(false);
 	   js3.setBounds(470, 15, 380, 310);
 	   add(js3);
 	   bar=js3.getVerticalScrollBar();
 	   tf=new JTextField();
-	   tf.setBounds(470, 330, 380, 30);
+	   tf.setBounds(470, 330, 280, 30);
 	   add(tf);
+	   
+	   box.addItem("black");
+	   box.addItem("blue");
+	   box.addItem("green");
+	   box.addItem("magenta");
+	   box.addItem("pink");
+	   box.addItem("cyan");
+	   box.addItem("orange");
+	   box.setBounds(755, 330, 100, 30);
+	   add(box);
 	   
 	   b1=new JButton("방만들기");
 	   b2=new JButton("방들어가기");
@@ -59,6 +74,42 @@ public class ChatPanel extends JPanel{
 	   p.add(b6);
 	   p.setBounds(470, 370, 380, 200);
 	   add(p);
+   }
+   public void initStyle()
+   {
+	   Style green=pane.addStyle("green", null);
+	   StyleConstants.setForeground(green, Color.green);
+	   
+	   Style yellow=pane.addStyle("yellow", null);
+	   StyleConstants.setForeground(yellow, Color.yellow);
+	   
+	   Style blue=pane.addStyle("blue", null);
+	   StyleConstants.setForeground(blue, Color.blue);
+	   
+	   Style pink=pane.addStyle("pink", null);
+	   StyleConstants.setForeground(pink, Color.pink);
+	   
+	   Style cyan=pane.addStyle("cyan", null);
+	   StyleConstants.setForeground(cyan, Color.cyan);
+	   
+	   Style orange=pane.addStyle("orange", null);
+	   StyleConstants.setForeground(orange, Color.orange);
+	   
+	   Style magenta=pane.addStyle("magenta", null);
+	   StyleConstants.setForeground(magenta, Color.magenta);
+       
+	   Style red=pane.addStyle("red", null);
+	   StyleConstants.setForeground(red, Color.red);
+	   
+   }
+   public void append(String msg,String color)
+   {
+	   try
+	   {
+		   Document doc=pane.getDocument();
+		   doc.insertString(doc.getLength(), msg+"\n",
+				   pane.getStyle(color));
+	   }catch(Exception ex){}
    }
 }
 

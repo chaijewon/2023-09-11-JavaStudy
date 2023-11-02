@@ -163,10 +163,11 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 			String msg=cp.cp.tf.getText();
 			if(msg.trim().length()<1)
 				return;
+			String color=cp.cp.box.getSelectedItem().toString();
 			// 채팅 메세지 전송 
 			try
 			{
-				out.write((Function.WAITCHAT+"|"+msg+"\n").getBytes());
+				out.write((Function.WAITCHAT+"|"+msg+"|"+color+"\n").getBytes());
 			}catch(Exception ex) {}
 			cp.cp.tf.setText("");
 		}
@@ -230,8 +231,9 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 				  break;
 				  case Function.WAITCHAT:
 				  {
+					  cp.cp.initStyle();
 					  cp.cp.bar.setValue(cp.cp.bar.getMaximum());
-					  cp.cp.pane.append(st.nextToken()+"\n");
+					  cp.cp.append(st.nextToken(), st.nextToken());
 				  }
 				  break;
 				  case Function.MYEXIT:

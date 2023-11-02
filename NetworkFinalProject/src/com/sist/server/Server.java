@@ -108,7 +108,7 @@ public class Server implements Runnable{
 						messageAll(Function.LOGIN+"|"+id+"|"
 								+name+"|"+sex+"|"+pos);
 						messageAll(Function.WAITCHAT+"|[알림 ☞] "+
-								name+"님 입장하셨습니다");
+								name+"님 입장하셨습니다|red");
 						// waitVc => 저장 
 						waitVc.add(this);
 						// Login창을 닫고 , main을 보여준다 
@@ -128,12 +128,13 @@ public class Server implements Runnable{
 					  case Function.WAITCHAT:// 웹 => jsp
 					  {
 						  String data=st.nextToken();
-						  messageAll(Function.WAITCHAT+"|["+name+"]"+data);
+						  String color=st.nextToken();
+						  messageAll(Function.WAITCHAT+"|["+name+"]"+data+"|"+color);
 					  }
 					  break;
 					  case Function.EXIT:
 					  {
-						  messageAll(Function.WAITCHAT+"|[알림 ☞] "+name+"님 퇴장하셨습니다");
+						  messageAll(Function.WAITCHAT+"|[알림 ☞] "+name+"님 퇴장하셨습니다|red");
 						  messageAll(Function.EXIT+"|"+id);
 						  // id를 테이블에서 제거
 						  for(int i=0;i<waitVc.size();i++)
