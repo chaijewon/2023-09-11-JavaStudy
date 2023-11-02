@@ -77,6 +77,12 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
     	ArrayList<FoodCategoryVO> list=fm.foodCategoryData(1);
     	//cp.hp.cardInit();
     	cp.hp.cardPrint(list);
+    	
+    	// 채팅 등록 
+    	cp.cp.tf.addActionListener(this);
+    	cp.cp.b6.addActionListener(this);// 프로그램 종료
+    	
+    	setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
     			
     }
 	public static void main(String[] args) {
@@ -117,7 +123,10 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 		}
 		else if(e.getSource()==mp.b6)
 		{
-			System.exit(0);
+			try
+			{
+				out.write((Function.EXIT+"|\n").getBytes());
+			}catch(Exception ex) {}
 		}
 		else if(e.getSource()==login.b1)
 		{
@@ -149,12 +158,32 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 			// 서버 연결
 			connect(id, name, sex);
 		}
+		else if(e.getSource()==cp.cp.tf)
+		{
+			String msg=cp.cp.tf.getText();
+			if(msg.trim().length()<1)
+				return;
+			// 채팅 메세지 전송 
+			try
+			{
+				out.write((Function.WAITCHAT+"|"+msg+"\n").getBytes());
+			}catch(Exception ex) {}
+			cp.cp.tf.setText("");
+		}
+		else if(e.getSource()==cp.cp.b6)
+		{
+			try
+			{
+				out.write((Function.EXIT+"|\n").getBytes());
+			}catch(Exception ex) {}
+		}
 	}
 	// 서버와 연결 
 	public void connect(String id,String name,String sex)
 	{
 		try
 		{
+			// 192.168.0.101
 			s=new Socket("localhost",3355);// 서버연결 
 			out=s.getOutputStream(); // 서버전송
 			in=new BufferedReader(new InputStreamReader(s.getInputStream()));
@@ -201,7 +230,27 @@ public class ClientMainForm extends JFrame implements ActionListener,Runnable{
 				  break;
 				  case Function.WAITCHAT:
 				  {
+					  cp.cp.bar.setValue(cp.cp.bar.getMaximum());
 					  cp.cp.pane.append(st.nextToken()+"\n");
+				  }
+				  break;
+				  case Function.MYEXIT:
+				  {
+					  System.exit(0);
+				  }
+				  break;
+				  case Function.EXIT:
+				  {
+					  String id=st.nextToken();
+					  for(int i=0;i<cp.cp.model2.getRowCount();i++)
+					  {
+						  String temp=cp.cp.model2.getValueAt(i, 0).toString();
+						  if(id.equals(temp))
+						  {
+							  cp.cp.model2.removeRow(i);
+							  break;
+						  }
+					  }
 				  }
 				  break;
 				}

@@ -128,12 +128,30 @@ public class Server implements Runnable{
 					  case Function.WAITCHAT:// 웹 => jsp
 					  {
 						  String data=st.nextToken();
-						  messageAll(Function.WAITCHAT+"|"+data);
+						  messageAll(Function.WAITCHAT+"|["+name+"]"+data);
 					  }
 					  break;
 					  case Function.EXIT:
 					  {
-						  
+						  messageAll(Function.WAITCHAT+"|[알림 ☞] "+name+"님 퇴장하셨습니다");
+						  messageAll(Function.EXIT+"|"+id);
+						  // id를 테이블에서 제거
+						  for(int i=0;i<waitVc.size();i++)
+						  {
+							  Client client=waitVc.get(i);
+							  if(client.id.equals(id))
+							  {
+								  messageTo(Function.MYEXIT+"|");
+								  waitVc.remove(i);
+								  try
+								  {
+									  //  송수신 종료
+									  in.close();
+									  out.close();
+								  }catch(Exception ex) {}
+								  break;
+							  }
+						  }
 					  }
 					  break;
 					}
