@@ -22,6 +22,11 @@ class Student
 	public void setAge(int age) {
 		this.age = age;
 	}
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return (int)name.hashCode();
+	}
 	
 }
  
@@ -37,9 +42,10 @@ public class MainClass_2 {
         list.add(new Student("bbb", 30));
         list.add(new Student("ccc", 30));
         
-        List<Student> arr=DeduplicationUtils.deduplication(list, Student::getName);
-        for(Student s:arr)
+        Set<Student> set=new HashSet<Student>(list);
+        for(Student s:set)
         {
+        	System.out.println(s.hashCode());
         	System.out.println(s.getName());
         }
 	}
